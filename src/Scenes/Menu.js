@@ -5,10 +5,11 @@ class Menu extends Phaser.Scene  {
     // this is where we put the main menu
 
     create() {
-        keyUP = this.input.keyboard.addKey('UP');
-        keyDOWN = this.input.keyboard.addKey('DOWN');
-        keyLEFT = this.input.keyboard.addKey('LEFT');
-        keyRIGHT = this.input.keyboard.addKey('RIGHT');
+        console.log("Main Menu");
+    }
+
+    update() {
+        this.scene.start('playscene');
     }
 }
 

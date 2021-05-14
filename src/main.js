@@ -12,17 +12,17 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: {y: 300}
+            gravity: {y: 1000}
         },
 
     },
-    scenes: [Menu, Play]
+    scene: [Menu, Play]
 };
-
+console.log("in main.js");
 let game = new Phaser.Game(config);
 // reserve arrow keys and wasd
 let keyLEFT, keyRIGHT, keyUP, keyDOWN;
-let keyW, keyA, keyS, keyD;
+let keyW, keyA, keyS, keyD, keyR;
 // reserve spacebar
 let keySPACE;
 
