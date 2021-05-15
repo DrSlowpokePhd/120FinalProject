@@ -1,3 +1,6 @@
+// Play is the debugging sandbox scene that provides a 
+// space to test objects and their interactions
+
 class Play extends Phaser.Scene {
     constructor() {
         super("playscene");
@@ -5,13 +8,16 @@ class Play extends Phaser.Scene {
     
     preload() {
         this.load.image('player', './Assets/Sprites/ER-Player.png');
-        this.load.image('platform', './Assets/Sprites/platform.png');
+        this.load.image('platform', './Assets/Sprites/REDBRICKS.png');
+        this.load.image('platform', 'Assets/Sprites/awningRed.png');
+        this.load.image('tiles', 'Assets/Sprites/spritesheet.png');
+        this.load.tilemapTiledJSON('map', 'Assets/Sprites/TestTower.json');
     }
 
     create() {
-        this.player = new Player (this, 640, 360, 'player');
-        this.ground = new Platform (this, 640, 720, 'platform');
-        this.physics.world.setBounds();   
+        this.player = new Player (this, 100, 600, 'player');
+        this.physics.world.setBounds();  
+        this.player.setCollideWorldBounds(true);
         keyUP = this.input.keyboard.addKey('UP');
         keyDOWN = this.input.keyboard.addKey('DOWN');
         keyLEFT = this.input.keyboard.addKey('LEFT');
@@ -19,6 +25,17 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey('R');
         keySPACE = this.input.keyboard.addKey('SPACE');
         keyD = this.input.keyboard.addKey('D');
+
+        // add tower to scene
+        // this.tower = new Tower(0, 720);
+        this.map = this.make.tilemap({ key: 'map' });
+        this.tileset = this.map.addTilesetImage('Tower', 'tiles');
+        this.platforms = this.map.createLayer('Platforms', this.tileset, 0, -1030);
+        this.platforms.setCollisionByExclusion(-1, true);
+        
+        // add collisions between tower and player
+        this.physics.add.collider(this.player, this.platforms);
+
         // reserve dialog box 
         let dialogStyle = {
                 backgroundColor: '#5d5861',
@@ -27,7 +44,7 @@ class Play extends Phaser.Scene {
                 fontSize: '16px',
                 fixedHeight: 100,
                 fixedWidth: 175,
-                wordWrap: { width: 260 }
+                wordWrap: { width: 165 }
             }
         
         let dialogBox = new DialogueBox (this, 50, 150, "This is a test.", dialogStyle);
@@ -44,15 +61,10 @@ class Play extends Phaser.Scene {
 
     update() {
         this.player.update();
+        
         // restart scene
         if (keyR.isDown) {
             this.scene.restart();
         }
-        
-        // press d to open text dialog box
-        if (keyD.isDown) {
-            
-        }
-        this.physics.add.collider(this.player, this.ground);
     }
 }
