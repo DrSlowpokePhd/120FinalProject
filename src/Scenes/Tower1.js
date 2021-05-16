@@ -29,6 +29,8 @@ class Tower1 extends Phaser.Scene {
         this.platforms.setCollisionByExclusion(-1, true);
 
         this.physics.add.collider(this.player, this.platforms);
+        this.camera = this.cameras.main; // set main camera to this.camera
+        this.camera.startFollow(this.player, 0.02, 0.02, 50, 50);
     }
 
     update() {

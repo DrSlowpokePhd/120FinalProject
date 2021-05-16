@@ -8,15 +8,38 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this, 0);
     }
 
+    create() {
+        
+    }
+
     update() {
-        this.canJump = this.body.touching.down;
-        if (keySPACE.isDown) {
+        // console.log(this.canJump);
+        if (keyUP.isDown) {
             // console.log(this.canJump);
             if (this.canJump) {
-                this.setVelocityY(-1 * this.jumpStrength);
+                this.setY (this.y - this.jumpStrength);
+                this.canJump = false;         
+                this.timer = this.scene.time.addEvent({ 
+                    delay: 1000, 
+                    paused: false, 
+                    callback: () => {
+                        this.canJump = true;
+                    }
+                });
+            }
+        } else if (keyDOWN.isDown) {
+            if (this.canJump) {
+                this.setY (this.y + this.jumpStrength);
+                this.canJump = false;         
+                this.timer = this.scene.time.addEvent({ 
+                    delay: 1000, 
+                    paused: false, 
+                    callback: () => {
+                        this.canJump = true;
+                    }
+                });
             }
         }
-
         if (keyLEFT.isDown) {
             this.x -= this.h_movespeed;
         } else if (keyRIGHT.isDown) {
