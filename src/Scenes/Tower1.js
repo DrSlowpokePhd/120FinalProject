@@ -8,11 +8,16 @@ class Tower1 extends Phaser.Scene {
         this.load.image('player', './Assets/Sprites/ER-Player.png');
         this.load.image('platform', 'Assets/Sprites/awningRed.png');
         this.load.image('tiles', 'Assets/Sprites/spritesheet.png');
-        this.load.tilemapTiledJSON('map', 'Assets/Sprites/TestTower.json'); 
+        this.load.tilemapTiledJSON('map', 'Assets/Sprites/TestTower.json');
+
+        //character sprite sheets
+        this.load.spritesheet('goblin_idle', './Assets/Characters/goblin_idle.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
+        this.load.image('harpy', './Assets/Characters/harpy_idle.png'); //add a sprite sheet later
+
     }
 
     create() {
-        this.player = new Player (this, 100, 600, 'player');
+        this.player = new Player (this, 100, 600, 'goblin_idle');
         this.physics.world.setBounds();  
         this.player.setCollideWorldBounds(true);
         keyUP = this.input.keyboard.addKey('UP');
@@ -31,6 +36,15 @@ class Tower1 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.platforms);
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.02, 0.02, 50, 50);
+
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNumbers('goblin_idle', {start:0, end: 4, first: 0}),
+            framteRate: 20,
+            repeat: -1
+        });
+
+        this.player.anims.play('idle');
     }
 
     update() {
