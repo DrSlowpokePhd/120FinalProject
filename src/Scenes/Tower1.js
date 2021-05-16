@@ -14,9 +14,19 @@ class Tower1 extends Phaser.Scene {
         this.load.spritesheet('goblin_idle', './Assets/Characters/goblin_idle.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
         this.load.image('harpy', './Assets/Characters/harpy_idle.png'); //add a sprite sheet later
 
+        //sounds
+        this.load.audio('background_music', './Assets/Sounds/towerGameMusic.wav');
+
     }
 
     create() {
+        //create background music
+        //add music
+        if(this.bgMusic == undefined) //prevent duplication
+        {
+            this.bgMusic = this.sound.add('background_music');
+        }
+
         this.player = new Player (this, 100, 600, 'goblin_idle');
         this.physics.world.setBounds();  
         this.player.setCollideWorldBounds(true);
@@ -48,6 +58,11 @@ class Tower1 extends Phaser.Scene {
     }
 
     update() {
+        if(!this.bgMusic.isPlaying)
+         {
+            this.bgMusic.play();
+         }
+
         this.player.update();
         
         // restart scene
