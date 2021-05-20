@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.5" tiledversion="1.6.0" name="Tower Game" tilewidth="64" tileheight="64" tilecount="64" columns="8">
- <editorsettings>
-  <export target="TowerTiles.json" format="json"/>
- </editorsettings>
  <image source="Backgrounds/backgroundTiles.png" trans="000000" width="512" height="512"/>
  <tile id="4" type="ToBeCleaned">
   <properties>

@@ -6,9 +6,8 @@ class Tower1 extends Phaser.Scene {
 
     preload() {
         this.load.image('player', './Assets/Characters/ER-Player.png');
-        this.load.image('platform', './Assets/Backgrounds/awningRed.png');
-        this.load.image('tiles', './Assets/Backgrounds/spritesheet.png');
-        this.load.tilemapTiledJSON('map', './Assets/TestTower.json');
+        this.load.image('tiles', './Assets/Backgrounds/backgroundTiles.png');
+        this.load.tilemapTiledJSON('map', './Assets/TowerTiles.json');
 
         //character sprite sheets
         this.load.spritesheet('goblin_idle', './Assets/Characters/goblin_idle.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
@@ -27,7 +26,7 @@ class Tower1 extends Phaser.Scene {
             this.bgMusic = this.sound.add('background_music');
         }
 
-        this.player = new Player (this, 100, 600, 'goblin_idle');
+        this.player = new Player (this, 100, 1200, 'goblin_idle');
         this.physics.world.setBounds();  
         this.player.setCollideWorldBounds(true);
         keyUP = this.input.keyboard.addKey('UP');
@@ -39,10 +38,19 @@ class Tower1 extends Phaser.Scene {
         keyD = this.input.keyboard.addKey('D');
 
         this.map = this.make.tilemap({ key: 'map' });
-        this.tileset = this.map.addTilesetImage('Tower', 'tiles');
-        this.platforms = this.map.createLayer('Platforms', this.tileset, 0, -1030);
+        this.tileset = this.map.addTilesetImage('Tower Game', 'tiles');
+
+        this.map.createStaticLayer('Backgrounds', this.tileset, 0, -1030);
+
+        this.ground = this.map.createStaticLayer('Ground', this.tileset, 0, -1030);
+        this.ground.setCollisionByExclusion(-1, true);
+
+        this.platforms = this.map.createStaticLayer('Platforms', this.tileset, 0, -1030);
         this.platforms.setCollisionByExclusion(-1, true);
 
+        this.map.createStaticLayer('Decoration', this.tileset, 0, -1030);
+
+        this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.platforms);
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.02, 0.02, 50, 50);
