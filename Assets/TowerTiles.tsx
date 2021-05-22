@@ -31,16 +31,25 @@
   </objectgroup>
  </tile>
  <tile id="25">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
  <tile id="26">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
  <tile id="27">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
@@ -54,47 +63,94 @@
   </objectgroup>
  </tile>
  <tile id="32">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
+ <tile id="33">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="35">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="36">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
  <tile id="40">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="3">
    <object id="9" x="0" y="0" width="64" height="64"/>
    <object id="10" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
  <tile id="44">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
  <tile id="48">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
  </tile>
+ <tile id="49">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="51">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="52">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
  </tile>
  <tile id="57">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
  </tile>
  <tile id="58">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
  </tile>
  <tile id="59">
+  <properties>
+   <property name="collides" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
