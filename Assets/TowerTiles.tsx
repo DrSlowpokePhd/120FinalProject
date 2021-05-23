@@ -88,6 +88,16 @@
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
+ <tile id="38" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="dust1"/>
+  </properties>
+ </tile>
+ <tile id="39" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="dust2"/>
+  </properties>
+ </tile>
  <tile id="40">
   <properties>
    <property name="collides" type="bool" value="true"/>
@@ -105,6 +115,12 @@
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
+ <tile id="45" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="cobweb1"/>
+  </properties>
+ </tile>
+ <tile id="46" type="ToBeCleaned"/>
  <tile id="48">
   <properties>
    <property name="collides" type="bool" value="true"/>
@@ -131,6 +147,11 @@
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
  </tile>
+ <tile id="53" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="chair"/>
+  </properties>
+ </tile>
  <tile id="57">
   <properties>
    <property name="collides" type="bool" value="true"/>
@@ -154,5 +175,10 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="63"/>
   </objectgroup>
+ </tile>
+ <tile id="60" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="table"/>
+  </properties>
  </tile>
 </tileset>
