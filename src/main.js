@@ -1,6 +1,10 @@
-// main.js is the place to put all of the 
-// variables you will need to access anywhere
-// in the game
+/* 
+Collision detection and tilemap implementation was done using help from these sources:
+https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
+https://stackabuse.com/phaser-3-and-tiled-building-a-platformer/
+https://rexrainbow.github.io/phaser3-rex-notes/docs/site/
+https://photonstorm.github.io/phaser3-docs/index.html
+*/
 
 // config size to be 1280 by 720,
 // use arcade physics, and use the
@@ -13,6 +17,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: {y: 1000},
+            tileBias: 64,
             debug: true
         },
 

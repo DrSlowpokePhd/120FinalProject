@@ -24,7 +24,10 @@ class Tower1 extends Phaser.Scene {
 
         //sounds
         this.load.audio('background_music', './Assets/Sounds/towerGameMusic.wav');
-
+        this.load.audio('jump_sfx', './Assets/Sounds/sound_effects/jump.wav');
+        this.load.audio('land_sfx', './Assets/Sounds/sound_effects/character_land.wav');
+        this.load.audio('scrub_sfx', './Assets/Sounds/sound_effects/scrub_sound.wav');
+        this.load.audio('sweep_sfx', './Assets/Sounds/sound_effects/sweeping.wav');
     }
 
     create() {
@@ -51,14 +54,22 @@ class Tower1 extends Phaser.Scene {
         this.map.createLayer('Background', this.tileset, 0, 0);
 
         this.ground = this.map.createLayer('Ground', this.tileset, 0, 0);
-        this.ground.setCollisionByProperty({ collides: true });
+        this.ground.setCollisionByProperty({collides: true}); 
 
         this.platforms = this.map.createLayer('Platforms', this.tileset, 0, 0);
-        this.platforms.setCollisionByProperty({ collides: true });
+        this.platforms.setCollisionByProperty({collides: true}); 
+        this.platforms.forEachTile(tile => {
+            tile.collideDown = false;
+        });
 
         this.map.createLayer('Decorations', this.tileset, 0, 0);
         
         //create objects
+        this.objects = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
         this.egg = this.map.createFromObjects('Objects', {gid: 38, key: 'egg'});
 
         this.trashArr = this.map.createFromObjects('Objects', { gid: 13, key: 'trash' });
@@ -76,6 +87,12 @@ class Tower1 extends Phaser.Scene {
         this.tableArr = this.map.createFromObjects('Objects', { gid: 61, key: 'table' });
 
         this.gameObjects = [this.egg, this.trashArr, this.dustArr, this.cobwebArr, this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr];
+
+        this.gameObjects.forEach(arr =>{
+            arr.forEach(tile => {
+                this.objects.add(tile);
+            });
+        });
 
 
         //create player
@@ -151,26 +168,20 @@ class Tower1 extends Phaser.Scene {
 
         this.player.update();
 
+        // Jump
+        if (keyUP.isDown && this.player.body.onFloor()) {
+            this.player.setVelocityY(this.player.jumpStrength);
+            this.sound.play('jump_sfx');
+        }
+
+        if (keyDOWN.isDown && this.physics.world.collide(this.player, this.platforms))
+        {
+            console.log("works");
+        }
+
         if(this.physics.world.overlap(this.player, this.gameObjects))
         {
             console.log('hit');
-        }
-        
-        // test tile collision bounds
-        if (keyD.isDown && !this.debugYes)
-        {
-            const graphics = this.add.graphics().setAlpha(0.75).setDepth(20);
-            this.ground.renderDebug(graphics, {
-                tileColor: null, // Color of non-colliding tiles
-                collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-                faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-            });
-            this.platforms.renderDebug(graphics, {
-                tileColor: null, // Color of non-colliding tiles
-                collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-                faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-            });
-            this.debugYes = true;
         }
 
         // restart scene
