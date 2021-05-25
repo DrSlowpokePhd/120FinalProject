@@ -1,7 +1,7 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
-        this.jumpStrength = 400;
+        this.jumpStrength = 290;
         this.h_movespeed = 4;  
         this.canJump = true;
         scene.add.existing(this);

@@ -7,11 +7,11 @@ class Play extends Phaser.Scene {
     }
     
     preload() {
-        this.load.image('player', './Assets/Sprites/ER-Player.png');
-        this.load.image('platform', './Assets/Sprites/REDBRICKS.png');
-        this.load.image('platform', 'Assets/Sprites/awningRed.png');
-        this.load.image('tiles', 'Assets/Sprites/spritesheet.png');
-        this.load.tilemapTiledJSON('map', 'Assets/Sprites/TestTower.json');
+        this.load.image('player', './Assets/Characters/ER-Player.png');
+        this.load.image('platform', './Assets/Backgrounds/REDBRICKS.png');
+        this.load.image('platform', './Assets/Backgrounds/awningRed.png');
+        this.load.image('tiles', './Assets/Backgrounds/spritesheet.png');
+        this.load.tilemapTiledJSON('map', './Assets/TestTower.json');
     }
 
     create() {

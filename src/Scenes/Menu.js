@@ -15,7 +15,9 @@ class Menu extends Phaser.Scene  {
     }
 
     update() {
-        this.scene.start('tower_1');
+        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.scene.start('tower_1');
+        }
     }
 }
 
