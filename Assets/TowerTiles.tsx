@@ -88,6 +88,11 @@
    <object id="1" x="0" y="0" width="64" height="64"/>
   </objectgroup>
  </tile>
+ <tile id="37">
+  <properties>
+   <property name="objectType" value="egg"/>
+  </properties>
+ </tile>
  <tile id="38" type="ToBeCleaned">
   <properties>
    <property name="objectType" value="dust1"/>
@@ -120,7 +125,11 @@
    <property name="objectType" value="cobweb1"/>
   </properties>
  </tile>
- <tile id="46" type="ToBeCleaned"/>
+ <tile id="46" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="bookshelf"/>
+  </properties>
+ </tile>
  <tile id="48">
   <properties>
    <property name="collides" type="bool" value="true"/>

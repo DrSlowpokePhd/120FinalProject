@@ -308,7 +308,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":994.666666666667,
+                 "x":994.667,
                  "y":2351
                 }],
          "opacity":1,
@@ -744,6 +744,15 @@
                         }]
                 }, 
                 {
+                 "id":37,
+                 "properties":[
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"egg"
+                        }]
+                }, 
+                {
                  "id":38,
                  "properties":[
                         {
@@ -850,6 +859,12 @@
                 }, 
                 {
                  "id":46,
+                 "properties":[
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"bookshelf"
+                        }],
                  "type":"ToBeCleaned"
                 }, 
                 {
