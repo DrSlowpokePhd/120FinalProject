@@ -49,6 +49,7 @@ class Tower1 extends Phaser.Scene {
         
         //create map
         this.map = this.make.tilemap({ key: 'map' });
+
         this.tileset = this.map.addTilesetImage('Tower Game', 'tiles');
 
         this.map.createLayer('Background', this.tileset, 0, 0);
@@ -102,6 +103,7 @@ class Tower1 extends Phaser.Scene {
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.overlap(this.player, this.objects);
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.02, 0.02, 50, 50);
 
@@ -116,43 +118,43 @@ class Tower1 extends Phaser.Scene {
         this.anims.create({
             key: 'trash_play',
             frames: this.anims.generateFrameNumbers('trash', {start:0, end: 3, first: 0}),
-            frameRate: 10
+            frameRate: 4
         });
 
         this.anims.create({
             key: 'cobweb_play',
             frames: this.anims.generateFrameNumbers('cobweb', {start:0, end: 3, first: 0}),
-            frameRate: 10
+            frameRate: 4
         });
         
         this.anims.create({
             key: 'dust_play',
             frames: this.anims.generateFrameNumbers('dust', {start:0, end: 3, first: 0}),
-            frameRate: 10
+            frameRate: 4
         });
         
         this.anims.create({
             key: 'hole_play',
             frames: this.anims.generateFrameNumbers('hole', {start:0, end: 3, first: 0}),
-            frameRate: 10
+            frameRate: 4
         });
 
         this.anims.create({
             key: 'chair_play',
             frames: this.anims.generateFrameNumbers('chair', {start:0, end: 1, first: 0}),
-            frameRate: 10
+            frameRate: 2
         });
         
         this.anims.create({
             key: 'table_play',
             frames: this.anims.generateFrameNumbers('table', {start:0, end: 1, first: 0}),
-            frameRate: 10
+            frameRate: 2
         });
 
         this.anims.create({
             key: 'bookshelf_play',
             frames: this.anims.generateFrameNumbers('bookshelf', {start:0, end: 1, first: 0}),
-            frameRate: 10
+            frameRate: 2
         });
 
         this.player.anims.play('idle');
@@ -179,9 +181,20 @@ class Tower1 extends Phaser.Scene {
             console.log("works");
         }
 
-        if(this.physics.world.overlap(this.player, this.gameObjects))
+        // clean object
+        if(this.physics.world.overlap(this.player, this.objects))
         {
-            console.log('hit');
+            this.objects.getChildren().forEach(obj => {
+                if(keySPACE.isDown && obj.body.touching.none == false && obj.data.list.objectType != "egg")
+                {
+                    this.sound.play('sweep_sfx');
+                    obj.anims.play(obj.data.list.objectType + '_play');
+                    obj.on('animationcomplete', () => {                        
+                        obj.alpha = 0;                  
+                        obj.destroy();                   
+                    });
+                }
+            });
         }
 
         // restart scene
