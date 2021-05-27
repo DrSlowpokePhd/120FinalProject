@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.6.0" name="Tower Game" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+<tileset version="1.5" tiledversion="1.6.0" name="Tower Game" tilewidth="64" tileheight="64" tilecount="88" columns="8">
  <editorsettings>
   <export target="TowerTiles.json" format="json"/>
  </editorsettings>
- <image source="Backgrounds/backgroundTiles.png" trans="000000" width="512" height="512"/>
+ <image source="Backgrounds/backgroundTiles.png" trans="000000" width="512" height="704"/>
  <tile id="4" type="ToBeCleaned">
   <properties>
    <property name="objectType" value="cobweb"/>
+   <property name="remove" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
@@ -15,6 +16,7 @@
  <tile id="12" type="ToBeCleaned">
   <properties>
    <property name="objectType" value="trash"/>
+   <property name="remove" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="2" x="27.2727" y="17.4545">
@@ -25,6 +27,7 @@
  <tile id="20" type="ToBeCleaned">
   <properties>
    <property name="objectType" value="dust"/>
+   <property name="remove" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="11" y="49" width="49" height="15"/>
@@ -57,6 +60,7 @@
  <tile id="28" type="ToBeCleaned">
   <properties>
    <property name="objectType" value="hole"/>
+   <property name="remove" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="64" height="64"/>
