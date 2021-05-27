@@ -38,6 +38,9 @@ class Tower1 extends Phaser.Scene {
             this.bgMusic = this.sound.add('background_music');
         }
 
+        // dialogue
+        this.dialogue = new Dialogue(this, "./src/Scripts/test.json");
+
         //define keys
         keyUP = this.input.keyboard.addKey('UP');
         keyDOWN = this.input.keyboard.addKey('DOWN');
@@ -88,11 +91,13 @@ class Tower1 extends Phaser.Scene {
         this.tableArr = this.map.createFromObjects('Objects', { gid: 61, key: 'table' });
 
         this.gameObjects = [this.egg, this.trashArr, this.dustArr, this.cobwebArr, this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr];
-
+        
+        this.object_amount = 0;
         this.gameObjects.forEach(arr =>{
             arr.forEach(tile => {
                 this.objects.add(tile);
             });
+            this.object_amount += arr.length;
         });
 
 
@@ -105,7 +110,7 @@ class Tower1 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.overlap(this.player, this.objects);
         this.camera = this.cameras.main; // set main camera to this.camera
-        this.camera.startFollow(this.player, 0.02, 0.02, 50, 50);
+        this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
 
         //create animations
         this.anims.create({
@@ -160,9 +165,22 @@ class Tower1 extends Phaser.Scene {
         this.player.anims.play('idle');
 
         this.debugYes = false;
+
+        this.cleaned_objects = 0;
+        // event triggers go here
+        this.events.on("CLEANUP", () => {
+            console.log("cleanup");
+            this.cleaned_objects++; 
+        });
+        
+        this.debug_text = this.add.text(100, 100, " ", {
+            fontSize: '32px'
+        }).setOrigin(0,0);
+        this.upgate = false; // update-gate, true when active
     }
 
     update() {
+        let spaceDown = Phaser.Input.Keyboard.JustDown(keySPACE);
         if(!this.bgMusic.isPlaying)
          {
             this.bgMusic.play();
@@ -185,15 +203,16 @@ class Tower1 extends Phaser.Scene {
         if(this.physics.world.overlap(this.player, this.objects))
         {
             this.objects.getChildren().forEach(obj => {
-                if(keySPACE.isDown && obj.body.touching.none == false && obj.data.list.objectType != "egg")
+                if(spaceDown && obj.body.touching.none == false && obj.data.list.objectType != "egg")
                 {
                     this.sound.play('sweep_sfx');
                     obj.anims.play(obj.data.list.objectType + '_play');
                     obj.on('animationcomplete', () => {                        
+                        this.events.emit("CLEANUP");
                         obj.alpha = 0;                  
-                        obj.destroy();                   
+                        obj.destroy();                
                     });
-                }
+                };    
             });
         }
 
@@ -201,5 +220,9 @@ class Tower1 extends Phaser.Scene {
         if (keyR.isDown) {
             this.scene.restart();
         }
+
+        this.debug_text.x = this.camera.worldView.x + 10;
+        this.debug_text.y = this.camera.worldView.y + 10;
+        this.debug_text.text = this.cleaned_objects + "/" + this.object_amount;
     }
 }
