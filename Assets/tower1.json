@@ -76,8 +76,19 @@
                  "height":64,
                  "id":51,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"cobweb"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1792,
@@ -88,8 +99,19 @@
                  "height":64,
                  "id":54,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"cobweb"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":2496,
@@ -100,8 +122,19 @@
                  "height":64,
                  "id":55,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"trash"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1792,
@@ -112,8 +145,19 @@
                  "height":64,
                  "id":56,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"trash"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1408,
@@ -124,8 +168,19 @@
                  "height":64,
                  "id":57,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"trash"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1472,
@@ -136,8 +191,19 @@
                  "height":64,
                  "id":58,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"trash"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":2176,
@@ -148,8 +214,19 @@
                  "height":64,
                  "id":59,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"trash"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":2368,
@@ -160,8 +237,19 @@
                  "height":64,
                  "id":60,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"dust"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1280,
@@ -172,8 +260,19 @@
                  "height":64,
                  "id":61,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"dust"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1792,
@@ -184,8 +283,19 @@
                  "height":64,
                  "id":62,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"hole"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1600,
@@ -196,8 +306,19 @@
                  "height":64,
                  "id":63,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"hole"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1088,
@@ -208,8 +329,19 @@
                  "height":64,
                  "id":64,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"hole"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1920,
@@ -220,8 +352,19 @@
                  "height":64,
                  "id":66,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"hole"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1536,
@@ -232,8 +375,19 @@
                  "height":64,
                  "id":68,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"chair"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1664,
@@ -244,8 +398,19 @@
                  "height":64,
                  "id":69,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"table"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1728,
@@ -256,8 +421,19 @@
                  "height":64,
                  "id":70,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"bookshelf"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1472,
@@ -268,8 +444,19 @@
                  "height":64,
                  "id":72,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"bookshelf"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":2048,
@@ -280,8 +467,19 @@
                  "height":64,
                  "id":75,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"cleaned",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"hole"
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"ToBeCleaned",
                  "visible":true,
                  "width":64,
                  "x":1920,
@@ -292,6 +490,12 @@
                  "height":64,
                  "id":76,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"objectType",
+                         "type":"string",
+                         "value":"egg"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
