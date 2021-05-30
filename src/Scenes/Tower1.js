@@ -75,6 +75,8 @@ class Tower1 extends Phaser.Scene {
 
         this.map.createLayer('Background', this.tileset, 0, 0);
 
+        this.map.createLayer('Decorations', this.tileset, 0, 0);
+
         this.ground = this.map.createLayer('Ground', this.tileset, 0, 0);
         this.ground.setCollisionByProperty({collides: true}); 
 
@@ -84,8 +86,6 @@ class Tower1 extends Phaser.Scene {
             tile.collideDown = false;
         });
 
-        this.map.createLayer('Decorations', this.tileset, 0, 0);
-        
         //create objects
         this.objects = this.physics.add.group({
             allowGravity: false,
@@ -254,8 +254,11 @@ class Tower1 extends Phaser.Scene {
                     obj.anims.play(obj.data.list.objectType + '_play');
                     obj.on('animationcomplete', () => {                        
                         this.events.emit("CLEANUP");
-                        obj.alpha = 0;                  
-                        obj.destroy();                
+                        if(obj.data.list.remove)
+                        {
+                            obj.alpha = 0;  
+                        }                
+                        this.objects.remove(obj)            
                     });
                 // how 
                 } else if (spaceDown && obj.body.touching.none == false &&
