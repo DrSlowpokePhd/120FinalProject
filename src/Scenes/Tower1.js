@@ -7,6 +7,7 @@ class Tower1 extends Phaser.Scene {
     preload() {
         this.load.image('tiles', './Assets/Backgrounds/backgroundTiles.png');
         this.load.tilemapTiledJSON('map', './Assets/tower1.json');
+        this.load.image('clouds', './Assets/Backgrounds/clouds.png');
 
         //character sprite sheets
         this.load.spritesheet('goblin_idle', 
@@ -119,7 +120,6 @@ class Tower1 extends Phaser.Scene {
             this.object_amount += arr.length;
         });
 
-
         //create player
         const spawnPoint = this.map.findObject("Objects", obj => obj.name === "spawnpoint");
         this.player = new Player (this, spawnPoint.x, spawnPoint.y, 'goblin_idle');
@@ -131,6 +131,10 @@ class Tower1 extends Phaser.Scene {
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
         this.in_convo = false;
+
+        //add cloud layer
+        this.add.tileSprite(spawnPoint.x- 1280, spawnPoint.y-310, 2780, 720, 'clouds').setOrigin(0,0);
+
         //create animations
         this.anims.create({
             key: 'idle',
@@ -204,6 +208,7 @@ class Tower1 extends Phaser.Scene {
             this.cleaned_objects++; 
         });
 
+        // conversation 1
         this.events.on("conversation_1", () => {
             
             if (this.convo_array.length === 0) {
@@ -211,6 +216,7 @@ class Tower1 extends Phaser.Scene {
                 this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
                 this.dialogueBox.visible = false;
                 this.in_convo = false;
+                this.events.emit("CLEANUP");
             } else {
                 this.camera.stopFollow();
                 this.line = this.convo_array[0];
@@ -242,29 +248,33 @@ class Tower1 extends Phaser.Scene {
             this.bgMusic.play();
          }
 
-        
-
         if(this.physics.world.overlap(this.player, this.objects))
         {
             this.objects.getChildren().forEach(obj => {
                 if(spaceDown && obj.body.touching.none == false && 
                     obj.data.list.objectType != "egg")
                 {
-                    this.sound.play('sweep_sfx');
-                    obj.anims.play(obj.data.list.objectType + '_play');
-                    obj.on('animationcomplete', () => {                        
-                        this.events.emit("CLEANUP");
-                        if(obj.data.list.remove)
-                        {
-                            obj.alpha = 0;  
-                        }                
-                        this.objects.remove(obj)            
-                    });
+                    if(!obj.data.list.cleaned)
+                    {
+                        obj.data.list.cleaned = true;
+                        this.sound.play('sweep_sfx');
+                        obj.anims.play(obj.data.list.objectType + '_play');
+                        obj.on('animationcomplete', () => {                        
+                            this.events.emit("CLEANUP");
+                            if(obj.data.list.remove)
+                            {
+                                obj.alpha = 0;  
+                            }                
+                            this.objects.remove(obj);          
+                        });
+                    }
                 // how 
                 } else if (spaceDown && obj.body.touching.none == false &&
                             obj.data.list.objectType === "egg"){
                     this.convo_array = this.dialogue.script["conversation_1"];
                     this.in_convo = true;    
+                    obj.alpha = 0;
+                    this.objects.remove(obj);
                 }
             });
         }
