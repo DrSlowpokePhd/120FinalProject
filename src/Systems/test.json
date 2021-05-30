@@ -1,0 +1,14 @@
+{
+    "scene_name": "tower_1",
+    "conversation_1": [
+        {
+            "char_name": "Hugh Mann",
+            "dialogue": "Hello Harpy!"
+        },
+
+        {
+            "char_name": "Harpy",
+            "dialogue": "CAW CAW! CAW CAW!"
+        }
+    ]
+}

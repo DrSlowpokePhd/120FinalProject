@@ -9,18 +9,36 @@ class Tower1 extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', './Assets/tower1.json');
 
         //character sprite sheets
-        this.load.spritesheet('goblin_idle', './Assets/Characters/goblin_idle.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
-        this.load.image('harpy', './Assets/Characters/harpy_idle.png'); //add a sprite sheet later
+        this.load.spritesheet('goblin_idle', 
+            './Assets/Characters/goblin_idle.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
+        this.load.image('harpy', 
+            './Assets/Characters/harpy_idle.png'); //add a sprite sheet later
 
         //object sprite sheets
-        this.load.image('egg', './Assets/Objects/egg.png');
-        this.load.spritesheet('trash', './Assets/Objects/trash.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('cobweb', './Assets/Objects/cobweb.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('dust', './Assets/Objects/dust.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('hole', './Assets/Objects/hole.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('chair', './Assets/Objects/chair.png', {frameWidth: 64, frameWidth: 64, startFrame: 0, endFrame: 1});
-        this.load.spritesheet('bookshelf', './Assets/Objects/bookshelf.png', {frameWidth: 64, frameWidth: 64, startFrame: 0, endFrame: 1});
-        this.load.spritesheet('table', './Assets/Objects/table.png', {frameWidth: 64, frameWidth: 64, startFrame: 0, endFrame: 1});
+        this.load.image('egg', 
+            './Assets/Objects/egg.png');
+        this.load.spritesheet('trash', 
+            './Assets/Objects/trash.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('cobweb', 
+            './Assets/Objects/cobweb.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('dust', 
+            './Assets/Objects/dust.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('hole', 
+            './Assets/Objects/hole.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('chair', 
+            './Assets/Objects/chair.png', 
+            {frameWidth: 64, frameWidth: 64, startFrame: 0, endFrame: 1});
+        this.load.spritesheet('bookshelf', 
+            './Assets/Objects/bookshelf.png', 
+            {frameWidth: 64, frameWidth: 64, startFrame: 0, endFrame: 1});
+        this.load.spritesheet('table', 
+            './Assets/Objects/table.png', 
+            {frameWidth: 64, frameWidth: 64, startFrame: 0, endFrame: 1});
 
         //sounds
         this.load.audio('background_music', './Assets/Sounds/towerGameMusic.wav');
@@ -90,7 +108,8 @@ class Tower1 extends Phaser.Scene {
 
         this.tableArr = this.map.createFromObjects('Objects', { gid: 61, key: 'table' });
 
-        this.gameObjects = [this.egg, this.trashArr, this.dustArr, this.cobwebArr, this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr];
+        this.gameObjects = [this.egg, this.trashArr, this.dustArr, this.cobwebArr,
+                            this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr];
         
         this.object_amount = 0;
         this.gameObjects.forEach(arr =>{
@@ -111,7 +130,7 @@ class Tower1 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.objects);
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
-
+        this.in_convo = false;
         //create animations
         this.anims.create({
             key: 'idle',
@@ -167,43 +186,69 @@ class Tower1 extends Phaser.Scene {
         this.debugYes = false;
 
         this.cleaned_objects = 0;
+        this.convo_array = this.dialogue.script;
+        this.line;
+        this.speaker;
+        this.speaker_txt;
+        this.dialogueBox = new DialogueBox(this, 0, 0, " ");
+
+        // object to store the speaking characters present in a scene
+        this.characters = {
+            Hugh_Mann: this.player,
+            Harpy: this.egg[0]
+        };
+
         // event triggers go here
         this.events.on("CLEANUP", () => {
             console.log("cleanup");
             this.cleaned_objects++; 
         });
+
+        this.events.on("conversation_1", () => {
+            
+            if (this.convo_array.length === 0) {
+                this.camera.stopFollow(); 
+                this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
+                this.dialogueBox.visible = false;
+                this.in_convo = false;
+            } else {
+                this.camera.stopFollow();
+                this.line = this.convo_array[0];
+                this.speaker = this.characters[this.line.char_name];
+                this.speaker_txt = this.line.dialogue;
+                this.dialogueBox.x = this.speaker.x;
+                this.dialogueBox.y = this.speaker.y; 
+                this.dialogueBox.setText(this.speaker_txt);
+                this.camera.startFollow(this.speaker);
+                this.convo_array.shift();
+            }
+        });
         
-        this.debug_text = this.add.text(100, 100, " ", {
+        this.progress_text = this.add.text(100, 100, " ", {
             fontSize: '32px'
         }).setOrigin(0,0);
-        this.upgate = false; // update-gate, true when active
+
+        this.playerpos = this.add.text(1180, 100, " ", {
+            fontSize: '32px'
+        }).setOrigin(0,0);
+
     }
 
     update() {
         let spaceDown = Phaser.Input.Keyboard.JustDown(keySPACE);
+        
         if(!this.bgMusic.isPlaying)
          {
             this.bgMusic.play();
          }
 
-        this.player.update();
+        
 
-        // Jump
-        if (keyUP.isDown && this.player.body.onFloor()) {
-            this.player.setVelocityY(this.player.jumpStrength);
-            this.sound.play('jump_sfx');
-        }
-
-        if (keyDOWN.isDown && this.physics.world.collide(this.player, this.platforms))
-        {
-            console.log("works");
-        }
-
-        // clean object
         if(this.physics.world.overlap(this.player, this.objects))
         {
             this.objects.getChildren().forEach(obj => {
-                if(spaceDown && obj.body.touching.none == false && obj.data.list.objectType != "egg")
+                if(spaceDown && obj.body.touching.none == false && 
+                    obj.data.list.objectType != "egg")
                 {
                     this.sound.play('sweep_sfx');
                     obj.anims.play(obj.data.list.objectType + '_play');
@@ -212,17 +257,38 @@ class Tower1 extends Phaser.Scene {
                         obj.alpha = 0;                  
                         obj.destroy();                
                     });
-                };    
+                // how 
+                } else if (spaceDown && obj.body.touching.none == false &&
+                            obj.data.list.objectType === "egg"){
+                    this.convo_array = this.dialogue.script["conversation_1"];
+                    this.in_convo = true;    
+                }
             });
         }
 
-        // restart scene
-        if (keyR.isDown) {
-            this.scene.restart();
+        if (this.in_convo) {
+            if (spaceDown) {
+                this.events.emit("conversation_1");
+            }
+        } else {
+            // place player movement controls here
+            this.player.update();     
+            // Jump
+            if (keyUP.isDown && this.player.body.onFloor()) {
+                this.player.setVelocityY(this.player.jumpStrength);
+                this.sound.play('jump_sfx');
+            }
         }
 
-        this.debug_text.x = this.camera.worldView.x + 10;
-        this.debug_text.y = this.camera.worldView.y + 10;
-        this.debug_text.text = this.cleaned_objects + "/" + this.object_amount;
+        this.progress_text.x = this.camera.worldView.x + 10;
+        this.progress_text.y = this.camera.worldView.y + 10;
+        this.progress_text.text = this.cleaned_objects + "/" + this.object_amount;
+        this.playerpos.x = this.camera.worldView.x + 980;
+        this.playerpos.y = this.camera.worldView.y + 10;
+        this.playerpos.text = "(" + Math.floor(this.player.x)
+                                  + ", " 
+                                  + Math.floor(this.player.y) + ")";
     }
 }
+
+

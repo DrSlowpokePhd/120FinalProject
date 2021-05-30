@@ -5,7 +5,6 @@ class Menu extends Phaser.Scene  {
     // this is where we put the main menu
 
     create() {
-        console.log("Main Menu");
         keySPACE = this.input.keyboard.addKey('SPACE');
         this.instructionalText = this.add.text(640, 360, "Press SPACE to start.", {
             backgroundColor: '#5d5861',

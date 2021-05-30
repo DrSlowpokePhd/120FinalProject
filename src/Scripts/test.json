@@ -2,7 +2,7 @@
     "scene_name" : "tower_1",
     "conversation_1" : [
         {
-            "char_name" : "Hugh Mann",
+            "char_name" : "Hugh_Mann",
             "dialogue" : "Hello Harpy!"
         },
 
