@@ -125,14 +125,27 @@ class Tower1 extends Phaser.Scene {
             });
             this.object_amount += arr.length;
         });
+        
+        //character physics group
+        this.characters = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        //create harpy        
+        const harpyPoint = this.map.findObject("Objects", obj => obj.name === "harpy");
+        this.harpy = this.add.sprite(harpyPoint.x, harpyPoint.y, 'harpy').setOrigin(0,0);
+        this.characters.add(this.harpy);
 
         //create player
         const spawnPoint = this.map.findObject("Objects", obj => obj.name === "spawnpoint");
+
         this.player = new Player (this, spawnPoint.x, spawnPoint.y, 'goblin_idle');
         this.physics.world.setBounds();
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.overlap(this.player, this.harpy);
         this.physics.add.overlap(this.player, this.objects);
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
@@ -288,7 +301,6 @@ class Tower1 extends Phaser.Scene {
                             this.objects.remove(obj);          
                         });
                     }
-                // how 
                 } else if (fDown && obj.body.touching.none == false &&
                             obj.data.list.objectType === "egg"){
                     this.convo_array = this.dialogue.script["conversation_1"];

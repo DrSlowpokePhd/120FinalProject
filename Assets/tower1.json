@@ -884,6 +884,18 @@
                  "width":64,
                  "x":1472,
                  "y":896
+                }, 
+                {
+                 "height":0,
+                 "id":90,
+                 "name":"harpy",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1088,
+                 "y":3392
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -892,7 +904,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":90,
+ "nextobjectid":91,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
