@@ -13,12 +13,19 @@ class Tower1 extends Phaser.Scene {
         this.load.spritesheet('goblin_idle', 
             './Assets/Characters/goblin_idle.png', 
             {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
+
         this.load.spritesheet('goblin_walk', 
             './Assets/Characters/goblin_walk.png', 
             {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
+
         this.load.spritesheet('goblin_jump', 
             './Assets/Characters/goblin_jump.png', 
             {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 0});
+
+        this.load.spritesheet('goblin_sweep', 
+            './Assets/Characters/goblin_sweep.png',
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 7});
+
         this.load.image('harpy', 
             './Assets/Characters/harpy_idle.png'); //add a sprite sheet later
 
@@ -156,22 +163,29 @@ class Tower1 extends Phaser.Scene {
 
         //create animations
         this.anims.create({
-            key: 'idle',
+            key: 'idle_play',
             frames: this.anims.generateFrameNumbers('goblin_idle', {start:0, end: 4, first: 0}),
             frameRate: 20,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'walk',
+            key: 'walk_play',
             frames: this.anims.generateFrameNumbers('goblin_walk', {start:0, end: 4, first: 0}),
             frameRate: 20,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'jump',
+            key: 'jump_play',
             frames: this.anims.generateFrameNumbers('goblin_jump', {start:0, end: 0, first: 0}),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'clean_play',
+            frames: this.anims.generateFrameNumbers('goblin_sweep', {start:0, end: 7, first: 0}),
             frameRate: 20,
             repeat: -1
         });
@@ -218,7 +232,7 @@ class Tower1 extends Phaser.Scene {
             frameRate: 2
         });
 
-        this.player.anims.play('idle');
+        this.player.anims.play('idle_play');
 
         this.debugYes = false;
 
@@ -287,6 +301,9 @@ class Tower1 extends Phaser.Scene {
                 if(fDown && obj.body.touching.none == false && 
                     obj.data.list.objectType != "egg")
                 {
+                    this.player.cleaning = true;
+                    this.player.setVelocityY(0);
+                    this.player.body.setAllowGravity(false);
                     if(!obj.data.list.cleaned)
                     {
                         obj.data.list.cleaned = true;
@@ -298,7 +315,9 @@ class Tower1 extends Phaser.Scene {
                             {
                                 obj.alpha = 0;  
                             }                
-                            this.objects.remove(obj);          
+                            this.objects.remove(obj);   
+                            this.player.cleaning = false;  
+                            this.player.body.setAllowGravity(true);     
                         });
                     }
                 } else if (fDown && obj.body.touching.none == false &&
@@ -320,18 +339,21 @@ class Tower1 extends Phaser.Scene {
             this.player.update();  
             
             // Animations
-            if(keySPACE.isDown){    
-                this.player.anims.play('jump');
+            if(this.player.cleaning) {
+                this.player.play('clean_play', true);
             }
-            else if((keyD.isDown || keyA.isDown) && this.player.body.onFloor){ 
-                this.player.anims.play('walk');
+            else if(keySPACE.isDown && !this.player.cleaning) {    
+                this.player.play('jump_play', true);
+            }
+            else if((keyD.isDown || keyA.isDown) && this.player.body.onFloor && !this.player.cleaning) { 
+                this.player.play('walk_play', true);
             }  
             else {    
-                this.player.anims.play('idle'); 
+                this.player.play('idle_play', true); 
             }
             
             // Jump
-            if (keySPACE.isDown && this.player.body.onFloor()) {
+            if (keySPACE.isDown && this.player.body.onFloor() && !this.player.cleaning) {
                 this.player.setVelocityY(this.player.jumpStrength);
                 this.sound.play('jump_sfx');
             }

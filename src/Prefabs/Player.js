@@ -4,15 +4,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.jumpStrength = -700;
         this.h_movespeed = 200;  
         this.canJump = true;
+        this.cleaning = false;
         scene.add.existing(this);
         scene.physics.add.existing(this, 0);
     }
     
     update() {
         // Left and right movement
-        if (keyA.isDown) {
+        if (keyA.isDown && !this.cleaning) {
             this.setVelocityX(-this.h_movespeed);
-        } else if (keyD.isDown) {
+        } else if (keyD.isDown  && !this.cleaning) {
             this.setVelocityX(this.h_movespeed);
         } else {
             this.setVelocityX(0);
