@@ -28,7 +28,7 @@ console.log("in main.js");
 let game = new Phaser.Game(config);
 // reserve arrow keys and wasd
 let keyLEFT, keyRIGHT, keyUP, keyDOWN;
-let keyW, keyA, keyS, keyD, keyR;
+let keyW, keyA, keyS, keyD, keyR, keyF;
 // reserve spacebar
 let keySPACE;
 

@@ -10,9 +10,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     
     update() {
         // Left and right movement
-        if (keyLEFT.isDown) {
+        if (keyA.isDown) {
             this.setVelocityX(-this.h_movespeed);
-        } else if (keyRIGHT.isDown) {
+        } else if (keyD.isDown) {
             this.setVelocityX(this.h_movespeed);
         } else {
             this.setVelocityX(0);

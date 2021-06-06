@@ -13,6 +13,12 @@ class Tower1 extends Phaser.Scene {
         this.load.spritesheet('goblin_idle', 
             './Assets/Characters/goblin_idle.png', 
             {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
+        this.load.spritesheet('goblin_walk', 
+            './Assets/Characters/goblin_walk.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 4});
+        this.load.spritesheet('goblin_jump', 
+            './Assets/Characters/goblin_jump.png', 
+            {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 0});
         this.load.image('harpy', 
             './Assets/Characters/harpy_idle.png'); //add a sprite sheet later
 
@@ -61,13 +67,13 @@ class Tower1 extends Phaser.Scene {
         this.dialogue = new Dialogue(this, "./src/Scripts/test.json");
 
         //define keys
-        keyUP = this.input.keyboard.addKey('UP');
-        keyDOWN = this.input.keyboard.addKey('DOWN');
-        keyLEFT = this.input.keyboard.addKey('LEFT');
-        keyRIGHT = this.input.keyboard.addKey('RIGHT');
+        keyW = this.input.keyboard.addKey('W');
+        keyS = this.input.keyboard.addKey('S');
+        keyA = this.input.keyboard.addKey('A');
+        keyD = this.input.keyboard.addKey('D');
         keyR = this.input.keyboard.addKey('R');
         keySPACE = this.input.keyboard.addKey('SPACE');
-        keyD = this.input.keyboard.addKey('D');
+        keyF = this.input.keyboard.addKey('F');
         
         //create map
         this.map = this.make.tilemap({ key: 'map' });
@@ -139,6 +145,20 @@ class Tower1 extends Phaser.Scene {
         this.anims.create({
             key: 'idle',
             frames: this.anims.generateFrameNumbers('goblin_idle', {start:0, end: 4, first: 0}),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNumbers('goblin_walk', {start:0, end: 4, first: 0}),
+            frameRate: 20,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'jump',
+            frames: this.anims.generateFrameNumbers('goblin_jump', {start:0, end: 0, first: 0}),
             frameRate: 20,
             repeat: -1
         });
@@ -241,7 +261,7 @@ class Tower1 extends Phaser.Scene {
     }
 
     update() {
-        let spaceDown = Phaser.Input.Keyboard.JustDown(keySPACE);
+        let fDown = Phaser.Input.Keyboard.JustDown(keyF);
         
         if(!this.bgMusic.isPlaying)
          {
@@ -251,7 +271,7 @@ class Tower1 extends Phaser.Scene {
         if(this.physics.world.overlap(this.player, this.objects))
         {
             this.objects.getChildren().forEach(obj => {
-                if(spaceDown && obj.body.touching.none == false && 
+                if(fDown && obj.body.touching.none == false && 
                     obj.data.list.objectType != "egg")
                 {
                     if(!obj.data.list.cleaned)
@@ -269,7 +289,7 @@ class Tower1 extends Phaser.Scene {
                         });
                     }
                 // how 
-                } else if (spaceDown && obj.body.touching.none == false &&
+                } else if (fDown && obj.body.touching.none == false &&
                             obj.data.list.objectType === "egg"){
                     this.convo_array = this.dialogue.script["conversation_1"];
                     this.in_convo = true;    
@@ -280,16 +300,36 @@ class Tower1 extends Phaser.Scene {
         }
 
         if (this.in_convo) {
-            if (spaceDown) {
+            if (fDown) {
                 this.events.emit("conversation_1");
             }
         } else {
             // place player movement controls here
-            this.player.update();     
+            this.player.update();  
+            
+            // Animations
+            if(keySPACE.isDown){    
+                this.player.anims.play('jump');
+            }
+            else if((keyD.isDown || keyA.isDown) && this.player.body.onFloor){ 
+                this.player.anims.play('walk');
+            }  
+            else {    
+                this.player.anims.play('idle'); 
+            }
+            
             // Jump
-            if (keyUP.isDown && this.player.body.onFloor()) {
+            if (keySPACE.isDown && this.player.body.onFloor()) {
                 this.player.setVelocityY(this.player.jumpStrength);
                 this.sound.play('jump_sfx');
+            }
+
+            //Flip direction
+            if (this.player.body.velocity.x < 0){
+                this.player.setFlipX(true);
+            }
+            else if (this.player.body.velocity.x > 0 ){
+                this.player.setFlipX(false);
             }
         }
 
