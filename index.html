@@ -4,8 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <title>The Big Green Clean</title>
+
+        <!--loads fonts, courtesy of https://stackoverflow.com/questions/51217147/how-to-use-a-local-font-in-phaser-3-->
+        <style media='screen' type='text/css'>
+            @font-face {
+              font-family: Eight Bit Dragon;
+              src: url('Assets/Fonts/eight_bit_dragon.ttf');
+              font-weight:400;
+              font-weight:normal;
+            }
+        </style>
+      </style>
     </head>
     <body>
+        <!--loads fonts, courtesy of https://stackoverflow.com/questions/51217147/how-to-use-a-local-font-in-phaser-3-->
+        <div style="font-family:'Eight Bit Dragon'; position:absolute; left:-1000px; visibility:hidden;">.</div>
+        
         <script src="./lib/phaser.js" charset="utf-8"></script>
         <script src="./src/Prefabs/Player.js" charset="utf-8"></script>
         <script src="./src/Prefabs/Platform.js" charset="utf-8"></script>
