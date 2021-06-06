@@ -236,7 +236,7 @@
   <object id="72" gid="47" x="2048" y="1856" width="64" height="64"/>
   <object id="75" gid="29" x="1920" y="1792" width="64" height="64"/>
   <object id="76" gid="38" x="768" y="3456" width="64" height="64"/>
-  <object id="77" name="spawnpoint" x="994.667" y="3375">
+  <object id="77" name="spawnpoint" x="960" y="3392">
    <point/>
   </object>
   <object id="78" gid="5" x="1088" y="1728" width="64" height="64"/>

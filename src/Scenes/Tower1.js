@@ -71,7 +71,7 @@ class Tower1 extends Phaser.Scene {
         }
 
         // dialogue
-        this.dialogue = new Dialogue(this, "./src/Scripts/test.json");
+        this.dialogue = new Dialogue(this, "./src/Scripts/dialogue.json");
 
         //define keys
         keyW = this.input.keyboard.addKey('W');
@@ -106,8 +106,6 @@ class Tower1 extends Phaser.Scene {
             immovable: true
         });
 
-        this.egg = this.map.createFromObjects('Objects', {gid: 38, key: 'egg'});
-
         this.trashArr = this.map.createFromObjects('Objects', { gid: 13, key: 'trash' });
 
         this.dustArr = this.map.createFromObjects('Objects', { gid: 21, key: 'dust' });
@@ -122,7 +120,7 @@ class Tower1 extends Phaser.Scene {
 
         this.tableArr = this.map.createFromObjects('Objects', { gid: 61, key: 'table' });
 
-        this.gameObjects = [this.egg, this.trashArr, this.dustArr, this.cobwebArr,
+        this.gameObjects = [this.trashArr, this.dustArr, this.cobwebArr,
                             this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr];
         
         this.object_amount = 0;
@@ -134,32 +132,36 @@ class Tower1 extends Phaser.Scene {
         });
         
         //character physics group
-        this.characters = this.physics.add.group({
+        this.characterGroup = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
 
+        //create egg
+        this.egg = this.map.createFromObjects('Objects', {gid: 38, key: 'egg'});
+        this.characterGroup.add(this.egg[0]);
+
         //create harpy        
         const harpyPoint = this.map.findObject("Objects", obj => obj.name === "harpy");
         this.harpy = this.add.sprite(harpyPoint.x, harpyPoint.y, 'harpy').setOrigin(0,0);
-        this.characters.add(this.harpy);
+        this.characterGroup.add(this.harpy);
 
         //create player
         const spawnPoint = this.map.findObject("Objects", obj => obj.name === "spawnpoint");
 
-        this.player = new Player (this, spawnPoint.x, spawnPoint.y, 'goblin_idle');
+        this.player = new Player (this, spawnPoint.x, spawnPoint.y, 'goblin_idle').setOrigin(0,0);
         this.physics.world.setBounds();
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.platforms);
-        this.physics.add.overlap(this.player, this.harpy);
+        this.physics.add.overlap(this.player, this.characterGroup);
         this.physics.add.overlap(this.player, this.objects);
         this.camera = this.cameras.main; // set main camera to this.camera
         this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
         this.in_convo = false;
 
         //add cloud layer
-        this.add.tileSprite(spawnPoint.x- 1280, spawnPoint.y-310, 2780, 720, 'clouds').setOrigin(0,0);
+        this.add.tileSprite(spawnPoint.x-1280, spawnPoint.y-310, 2780, 720, 'clouds').setOrigin(0,0);
 
         //create animations
         this.anims.create({
@@ -246,7 +248,8 @@ class Tower1 extends Phaser.Scene {
         // object to store the speaking characters present in a scene
         this.characters = {
             Hugh_Mann: this.player,
-            Harpy: this.egg[0]
+            Harpy: this.harpy,
+            Egg: this.egg[0]
         };
 
         // event triggers go here
@@ -255,22 +258,25 @@ class Tower1 extends Phaser.Scene {
             this.cleaned_objects++; 
         });
 
-        // conversation 1
-        this.events.on("conversation_1", () => {
+        // egg
+        this.events.on("tower_scene_egg", () => {
             
             if (this.convo_array.length === 0) {
                 this.camera.stopFollow(); 
                 this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
                 this.dialogueBox.visible = false;
                 this.in_convo = false;
-                this.events.emit("CLEANUP");
+                this.egg[0].active = false;
+                this.egg[0].alpha = 0;
+                this.harpy.active = false;
+                this.harpy.alpha = 0;
             } else {
                 this.camera.stopFollow();
                 this.line = this.convo_array[0];
                 this.speaker = this.characters[this.line.char_name];
                 this.speaker_txt = this.line.dialogue;
-                this.dialogueBox.x = this.speaker.x;
-                this.dialogueBox.y = this.speaker.y; 
+                this.dialogueBox.x = this.speaker.x+32;
+                this.dialogueBox.y = this.speaker.y+32; 
                 this.dialogueBox.setText(this.speaker_txt);
                 this.camera.startFollow(this.speaker);
                 this.convo_array.shift();
@@ -295,11 +301,12 @@ class Tower1 extends Phaser.Scene {
             this.bgMusic.play();
          }
 
+        //detect collision with objects 
         if(this.physics.world.overlap(this.player, this.objects))
         {
-            this.objects.getChildren().forEach(obj => {
-                if(fDown && obj.body.touching.none == false && 
-                    obj.data.list.objectType != "egg")
+            this.objects.getChildren().forEach(obj => 
+            {
+                if(fDown && obj.body.touching.none == false)
                 {
                     this.player.cleaning = true;
                     this.player.setVelocityY(0);
@@ -320,19 +327,23 @@ class Tower1 extends Phaser.Scene {
                             this.player.body.setAllowGravity(true);     
                         });
                     }
-                } else if (fDown && obj.body.touching.none == false &&
-                            obj.data.list.objectType === "egg"){
-                    this.convo_array = this.dialogue.script["conversation_1"];
-                    this.in_convo = true;    
-                    obj.alpha = 0;
-                    this.objects.remove(obj);
                 }
             });
         }
 
+        //detect collision with characters 
+        if(this.physics.world.overlap(this.player, this.characterGroup))
+        {
+            if (fDown && this.physics.world.overlap(this.player, this.egg[0]))
+            {
+                this.convo_array = this.dialogue.script["tower_scene_egg"];
+                this.in_convo = true; 
+             }
+        }
+
         if (this.in_convo) {
             if (fDown) {
-                this.events.emit("conversation_1");
+                this.events.emit("tower_scene_egg");
             }
         } else {
             // place player movement controls here
