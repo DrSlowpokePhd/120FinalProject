@@ -266,6 +266,8 @@ class Tower1 extends Phaser.Scene {
                 this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
                 this.dialogueBox.visible = false;
                 this.in_convo = false;
+
+                //hide objects
                 this.egg[0].active = false;
                 this.egg[0].alpha = 0;
                 this.harpy.active = false;
@@ -291,6 +293,7 @@ class Tower1 extends Phaser.Scene {
             fontSize: '32px'
         }).setOrigin(0,0);
 
+        progress = this.cleaned_objects/this.object_amount;
     }
 
     update() {
@@ -386,6 +389,22 @@ class Tower1 extends Phaser.Scene {
         this.playerpos.text = "(" + Math.floor(this.player.x)
                                   + ", " 
                                   + Math.floor(this.player.y) + ")";
+
+        if(!done)
+        {
+            progress = this.cleaned_objects / this.object_amount;
+            if(progress > 0.8)
+            {
+                done = true;
+            }
+        }
+        else
+        {
+            this.egg[0].active = true;
+            this.egg[0].alpha = 1;
+            this.harpy.active = true;
+            this.harpy.alpha = 1;
+        }
     }
 }
 

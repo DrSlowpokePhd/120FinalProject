@@ -35,4 +35,5 @@ let keyLEFT, keyRIGHT, keyUP, keyDOWN;
 let keyW, keyA, keyS, keyD, keyR, keyF;
 // reserve spacebar
 let keySPACE;
-
+let progress = 0;
+let done = false;
