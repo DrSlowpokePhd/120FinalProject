@@ -78,9 +78,10 @@ class Tower1 extends Phaser.Scene {
         keyS = this.input.keyboard.addKey('S');
         keyA = this.input.keyboard.addKey('A');
         keyD = this.input.keyboard.addKey('D');
-        keyR = this.input.keyboard.addKey('R');
+        keyT = this.input.keyboard.addKey('T');
         keySPACE = this.input.keyboard.addKey('SPACE');
         keyF = this.input.keyboard.addKey('F');
+        keyHoldDuration = 0;
         
         //create map
         this.map = this.make.tilemap({ key: 'map' });
@@ -286,7 +287,15 @@ class Tower1 extends Phaser.Scene {
         });
         
         // create progress indicator in top left
-        this.progress_text = this.add.text(10, 10, " ", {font: '32px'}).setScrollFactor(0);
+        this.progress_text = this.add.text(10, 110, " ", {
+            fontSize: '32px',
+            fontFamily: 'Eight Bit Dragon'
+        }).setScrollFactor(0);
+
+        this.help_text = this.add.text(10, 10, "WASD - Move\nF - Clean/Chat\nSpace - Jump\nT (Hold)- Exit to Title", {
+            fontSize: '24px',
+            fontFamily: 'Eight Bit Dragon'
+        }).setScrollFactor(0);
 
         // variable to track overall progress
         progress = this.cleaned_objects/this.object_amount;
@@ -377,7 +386,7 @@ class Tower1 extends Phaser.Scene {
             }
         }
 
-        this.progress_text.text = this.cleaned_objects + "/" + this.object_amount;
+        this.progress_text.text = "Progress: " + this.cleaned_objects + "/" + this.object_amount;
 
         if(!done)
         {
@@ -393,6 +402,12 @@ class Tower1 extends Phaser.Scene {
             this.egg[0].alpha = 1;
             this.harpy.active = true;
             this.harpy.alpha = 1;
+        }
+
+        // exit to title functionality
+        keyHoldDuration = keyT.getDuration();
+        if (keyHoldDuration > 2000) {
+            this.scene.start('title');
         }
     }
 }

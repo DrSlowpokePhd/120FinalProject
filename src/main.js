@@ -30,10 +30,10 @@ let config = {
 };
 console.log("in main.js");
 let game = new Phaser.Game(config);
-// reserve arrow keys and wasd
-let keyLEFT, keyRIGHT, keyUP, keyDOWN;
-let keyW, keyA, keyS, keyD, keyR, keyF;
-// reserve spacebar
+// reserve keys
+let keyW, keyA, keyS, keyD, keyR, keyF, keyT;
 let keySPACE;
+// declare variables to be used in Tower1.js
+let keyHoldDuration;
 let progress = 0;
 let done = false;
