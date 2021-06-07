@@ -285,8 +285,10 @@ class Tower1 extends Phaser.Scene {
             }
         });
         
-        this.progress_text = this.add.text(10, 10, "1234", {font: '32px'}).setScrollFactor(0);
+        // create progress indicator in top left
+        this.progress_text = this.add.text(10, 10, " ", {font: '32px'}).setScrollFactor(0);
 
+        // variable to track overall progress
         progress = this.cleaned_objects/this.object_amount;
     }
 
