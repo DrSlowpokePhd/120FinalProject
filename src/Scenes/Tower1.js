@@ -277,13 +277,6 @@ class Tower1 extends Phaser.Scene {
             console.log("cleanup");
             this.cleaned_objects++; 
         });
-        
-        // scene start
-        // this.events.once('start', () =>{
-        //     this.convo_array = this.dialogue.script["tower_intro"];
-        //     this.dialogue_name = "tower_intro";
-        //     this.in_convo = true; 
-        // });
 
         // tower intro
         this.events.on("tower_intro", () => {
