@@ -31,10 +31,10 @@ let config = {
 console.log("in main.js");
 let game = new Phaser.Game(config);
 // reserve keys
-let keyW, keyA, keyS, keyD, keyR, keyF, keyT;
+let keyW, keyA, keyS, keyD, keyR, keyF, keyT, keyP;
 let key1, key2, key3;
 let keySPACE;
 // declare variables to be used in Tower1.js
-let keyHoldDuration;
+let keyHoldDuration, keyHoldDurationDebug;
 let progress = 0;
 let done = false;

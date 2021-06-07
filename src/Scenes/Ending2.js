@@ -11,6 +11,9 @@ class Ending2 extends Phaser.Scene  {
     }
 
     create() {
+        // fade in
+        this.cameras.main.fadeIn(1000);
+
         // add key inputs
         keySPACE = this.input.keyboard.addKey('SPACE');
 

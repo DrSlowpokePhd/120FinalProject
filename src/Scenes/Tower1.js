@@ -84,14 +84,17 @@ class Tower1 extends Phaser.Scene {
         keyA = this.input.keyboard.addKey('A');
         keyD = this.input.keyboard.addKey('D');
         keyT = this.input.keyboard.addKey('T');
+        keyP = this.input.keyboard.addKey('P');
         keySPACE = this.input.keyboard.addKey('SPACE');
         keyF = this.input.keyboard.addKey('F');
         keyHoldDuration = 0;
+        keyHoldDurationDebug = 0;
         
         //define variables
         this.incubator_collected = false;
         this.paint_collected = false;
         this.dialogue_name = "";
+        this.doneCheck = false;
 
         //create map
         this.map = this.make.tilemap({ key: 'map' });
@@ -323,8 +326,8 @@ class Tower1 extends Phaser.Scene {
             }
         });
 
-         //paint
-         this.events.on("tower_scene_paint_can", () => {
+        //paint
+        this.events.on("tower_scene_paint_can", () => {
             
             if (this.convo_array.length === 0) {
                 this.camera.stopFollow(); 
@@ -332,6 +335,58 @@ class Tower1 extends Phaser.Scene {
                 this.dialogueBox.visible = false;
                 this.in_convo = false;
                 this.events.emit("CLEANUP");
+            } else {
+                this.camera.stopFollow();
+                this.line = this.convo_array[0];
+                this.speaker = this.characters[this.line.char_name];
+                this.speaker_txt = this.line.dialogue;
+                this.dialogueBox.x = this.speaker.x+32;
+                this.dialogueBox.y = this.speaker.y+32; 
+                this.dialogueBox.setText(this.speaker_txt);
+                this.camera.startFollow(this.speaker);
+                this.convo_array.shift();
+            }
+        });
+
+        //ending 1
+        this.events.on("tower_scene_ending_2", () => {
+            
+            if (this.convo_array.length === 0) {
+                this.camera.stopFollow(); 
+                this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
+                this.dialogueBox.visible = false;
+                this.in_convo = false;
+                this.cameras.main.fadeOut(1000)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.scene.start('ending1');
+                    this.scene.stop('tower_1');
+                })
+            } else {
+                this.camera.stopFollow();
+                this.line = this.convo_array[0];
+                this.speaker = this.characters[this.line.char_name];
+                this.speaker_txt = this.line.dialogue;
+                this.dialogueBox.x = this.speaker.x+32;
+                this.dialogueBox.y = this.speaker.y+32; 
+                this.dialogueBox.setText(this.speaker_txt);
+                this.camera.startFollow(this.speaker);
+                this.convo_array.shift();
+            }
+        });
+
+        //ending 2
+        this.events.on("tower_scene_ending_2", () => {
+            
+            if (this.convo_array.length === 0) {
+                this.camera.stopFollow(); 
+                this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
+                this.dialogueBox.visible = false;
+                this.in_convo = false;
+                this.cameras.main.fadeOut(1000)
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.scene.start('ending2');
+                    this.scene.stop('tower_1');
+                })
             } else {
                 this.camera.stopFollow();
                 this.line = this.convo_array[0];
@@ -424,10 +479,31 @@ class Tower1 extends Phaser.Scene {
                 this.convo_array = this.dialogue.script["tower_scene_egg"];
                 this.dialogue_name = "tower_scene_egg";
                 this.in_convo = true; 
-             }
+                this.characterGroup.remove(this.egg[0]);
+            }
+            else if (fDown && this.physics.world.overlap(this.player, this.harpy))
+            {
+                // endings
+                if(done)
+                {
+                    //ending 1
+                    if(this.incubator_collected && this.paint_collected)
+                    {
+
+                    }
+                    //ending 2
+                    else
+                    {
+                        this.convo_array = this.dialogue.script["tower_scene_ending_2"];
+                        this.dialogue_name = "tower_scene_ending_2";
+                        this.in_convo = true;
+                    }
+                }
+            }
         }
 
         if (this.in_convo) {
+            this.player.play('idle_play', true); 
             this.dialogueBox.visible = true;
             if (fDown) {
                 this.events.emit(this.dialogue_name);
@@ -477,7 +553,14 @@ class Tower1 extends Phaser.Scene {
         }
         else
         {
-            this.egg[0].active = true;
+            if(!this.doneCheck)
+            {
+                this.add.text(10, 142, "That's good enough.\nReturn to Sierra", {
+                    fontSize: '32px',
+                    fontFamily: 'Eight Bit Dragon'
+                }).setScrollFactor(0);
+                this.doneCheck = true;
+            }
             this.egg[0].alpha = 1;
             this.harpy.active = true;
             this.harpy.alpha = 1;
@@ -489,6 +572,13 @@ class Tower1 extends Phaser.Scene {
             this.sound.play('menu_hit');
             this.scene.start('title');
             this.scene.stop('tower_1');
+        }
+
+        //debug button
+        // exit to title functionality
+        keyHoldDurationDebug = keyP.getDuration();
+        if (keyHoldDurationDebug > 2000) {
+            done = true;
         }
     }
 }
