@@ -35,6 +35,8 @@ class Title extends Phaser.Scene  {
             fontFamily: 'Eight Bit Dragon',
             fontSize: '48px'
         });
+
+        // add text animation
         this.creditsText = this.add.text(352, 633, "Press R for credits.", {
             fontFamily: 'Eight Bit Dragon',
             fontSize: '48px'
@@ -50,7 +52,7 @@ class Title extends Phaser.Scene  {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.scene.start('tower_1');
+            this.scene.start('start');
         }
 
         if (Phaser.Input.Keyboard.JustDown(keyR)) {
