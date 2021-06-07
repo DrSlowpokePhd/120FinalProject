@@ -26,12 +26,13 @@ let config = {
         },
 
     },
-    scene: [Title, Credits, Start, Instructions, Play, Tower1]
+    scene: [Title, Credits, Start, Instructions, Play, Tower1, Ending1]
 };
 console.log("in main.js");
 let game = new Phaser.Game(config);
 // reserve keys
 let keyW, keyA, keyS, keyD, keyR, keyF, keyT;
+let key1, key2, key3;
 let keySPACE;
 // declare variables to be used in Tower1.js
 let keyHoldDuration;

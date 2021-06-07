@@ -16,6 +16,9 @@ class Title extends Phaser.Scene  {
         // add key inputs
         keySPACE = this.input.keyboard.addKey('SPACE');
         keyR = this.input.keyboard.addKey('R');
+        key1 = this.input.keyboard.addKey('ONE');
+        key2 = this.input.keyboard.addKey('TWO');
+        key3 = this.input.keyboard.addKey('THREE');
 
         // add animations
         this.anims.create({
@@ -57,6 +60,18 @@ class Title extends Phaser.Scene  {
 
         if (Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.start('credits');
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(key1)) {
+            this.scene.start('ending1');
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(key2)) {
+            this.scene.start('ending2');
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(key3)) {
+            this.scene.start('ending3');
         }
     }
 }
