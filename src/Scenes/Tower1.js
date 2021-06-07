@@ -396,5 +396,3 @@ class Tower1 extends Phaser.Scene {
         }
     }
 }
-
-
