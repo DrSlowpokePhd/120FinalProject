@@ -26,7 +26,7 @@ let config = {
         },
 
     },
-    scene: [Title, Credits, Start, Instructions, Play, Tower1, Ending1, Ending2, Ending3]
+    scene: [Title, Credits, Start, Instructions, Play, Tower1, Ending1, Ending2]
 };
 console.log("in main.js");
 let game = new Phaser.Game(config);
