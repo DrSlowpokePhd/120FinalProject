@@ -4,9 +4,11 @@ class DialogueBox extends Phaser.GameObjects.Text {
                 backgroundColor: '#5d5861',
                 align: 'left',
                 maxLines: '6',
-                fontSize: '16px',
-                fixedHeight: 100,
+                fontSize: '14px',
+                fontFamily: 'Eight Bit Dragon',
+                fixedHeight: 115,
                 fixedWidth: 175,
+                padding: 10,
                 wordWrap: { width: 165 }
             });
         scene.add.existing(this);
