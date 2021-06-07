@@ -95,6 +95,7 @@ class Tower1 extends Phaser.Scene {
         this.paint_collected = false;
         this.dialogue_name = "";
         this.doneCheck = false;
+        this.intro = true;
 
         //create map
         this.map = this.make.tilemap({ key: 'map' });
@@ -276,6 +277,34 @@ class Tower1 extends Phaser.Scene {
             console.log("cleanup");
             this.cleaned_objects++; 
         });
+        
+        // scene start
+        this.events.once('start', () =>{
+            this.convo_array = this.dialogue.script["tower_intro"];
+            this.dialogue_name = "tower_intro";
+            this.in_convo = true; 
+        });
+
+        // tower intro
+        this.events.on("tower_intro", () => {
+            
+            if (this.convo_array.length === 0) {
+                this.camera.stopFollow(); 
+                this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
+                this.dialogueBox.visible = false;
+                this.in_convo = false;
+            } else {
+                this.camera.stopFollow();
+                this.line = this.convo_array[0];
+                this.speaker = this.characters[this.line.char_name];
+                this.speaker_txt = this.line.dialogue;
+                this.dialogueBox.x = this.speaker.x+32;
+                this.dialogueBox.y = this.speaker.y+32; 
+                this.dialogueBox.setText(this.speaker_txt);
+                this.camera.startFollow(this.speaker);
+                this.convo_array.shift();
+            }
+        });
 
         // egg
         this.events.on("tower_scene_egg", () => {
@@ -349,7 +378,7 @@ class Tower1 extends Phaser.Scene {
         });
 
         //ending 1
-        this.events.on("tower_scene_ending_2", () => {
+        this.events.on("tower_scene_ending_1", () => {
             
             if (this.convo_array.length === 0) {
                 this.camera.stopFollow(); 
