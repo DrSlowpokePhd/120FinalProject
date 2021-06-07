@@ -285,9 +285,7 @@ class Tower1 extends Phaser.Scene {
             }
         });
         
-        this.progress_text = this.add.text(100, 100, " ", {
-            fontSize: '32px'
-        }).setOrigin(0,0);
+        this.progress_text = this.add.text(10, 10, "1234", {font: '32px'}).setScrollFactor(0);
 
         this.playerpos = this.add.text(1180, 100, " ", {
             fontSize: '32px'
@@ -381,9 +379,8 @@ class Tower1 extends Phaser.Scene {
             }
         }
 
-        this.progress_text.x = this.camera.worldView.x + 10;
-        this.progress_text.y = this.camera.worldView.y + 10;
         this.progress_text.text = this.cleaned_objects + "/" + this.object_amount;
+
         this.playerpos.x = this.camera.worldView.x + 980;
         this.playerpos.y = this.camera.worldView.y + 10;
         this.playerpos.text = "(" + Math.floor(this.player.x)
