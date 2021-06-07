@@ -20,8 +20,7 @@ class Credits extends Phaser.Scene  {
         // create text
         this.playText = this.add.text(196, 645, "Press SPACE to return to title.", {
             fontFamily: 'Eight Bit Dragon',
-            fontSize: '48px',
-            color: 'black'
+            fontSize: '48px'
         });
 
         // add text animation
