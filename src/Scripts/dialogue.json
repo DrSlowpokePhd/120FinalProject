@@ -212,13 +212,11 @@
         {
             "char_name" : "Harpy",
             "dialogue" : "I could be wrong, though. What do you think, Mr. Mann?"
-        }
-    ],
-
-    "tower_scene_ending_1-1" : [
+        },
+        
         {
             "char_name" : "Hugh_Mann",
-            "dialogue" : "You’re right, it is an egg."
+            "dialogue" : "I think you're right. It is an egg.."
         },
 
         {
@@ -233,39 +231,17 @@
 
         {
             "char_name" : "Harpy",
+            "dialogue" : "Or some awful, awful prank."
+        },
+
+        {
+            "char_name" : "Harpy",
             "dialogue" : "Still, it seems to have been here a while and is awfully cold..."
         },
 
         {
             "char_name" : "Harpy",
-            "dialogue" : "Maybe it’s a fossilized egg. I’ll send it along to an egg-spert I know."
-        },
-
-        {
-            "char_name" : "Hugh_Mann",
-            "dialogue" : "Egg-spert...?"
-        }
-    ],
-
-    "tower_scene_ending_1-2" : [
-        {
-            "char_name" : "Hugh_Mann",
-            "dialogue" : "Hmmm… I still have my doubts."
-        },
-
-        {
-            "char_name" : "Harpy",
-            "dialogue" : "Yeah… Judging by the mis-sized incubator and the matching color paint, this could be a prank."
-        },
-
-        {
-            "char_name" : "Harpy",
-            "dialogue" : "One in awful taste. I’ll have to call my real estate agent to lodge a complaint."
-        },
-
-        {
-            "char_name" : "Harpy",
-            "dialogue" : "Still, never hurts to be too careful; I’ll send the egg along to an egg-spert I know."
+            "dialogue" : "You can never be too certain... I'll send it along to an egg-spert I know."
         },
 
         {
