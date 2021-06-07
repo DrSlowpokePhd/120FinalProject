@@ -410,6 +410,7 @@ class Tower1 extends Phaser.Scene {
         if (keyHoldDuration > 2000) {
             this.sound.play('menu_hit');
             this.scene.start('title');
+            this.scene.stop('tower_1');
         }
     }
 }
