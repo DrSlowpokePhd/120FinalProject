@@ -31,10 +31,20 @@ class Title extends Phaser.Scene  {
         this.tower_sprite.anims.play('tower_animation'); 
 
         // create text
-        this.instructionalText = this.add.text(640, 360, "Press SPACE to start.", {
-            backgroundColor: '#5d5861',
-            align: 'center',
-            fontSize: '32px'
+        this.playText = this.add.text(352, 575, "Press SPACE to play.", {
+            fontFamily: 'Eight Bit Dragon',
+            fontSize: '48px'
+        });
+        this.creditsText = this.add.text(352, 633, "Press R for credits.", {
+            fontFamily: 'Eight Bit Dragon',
+            fontSize: '48px'
+        });
+        this.textTween = this.tweens.add({
+            targets: [ this.playText, this.creditsText ],
+            alpha: 0.1,
+            duration: 2000,
+            yoyo: true,
+            repeat: -1
         });
     }
 
