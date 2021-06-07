@@ -32,6 +32,10 @@ class Tower1 extends Phaser.Scene {
         //object sprite sheets
         this.load.image('egg', 
             './Assets/Objects/egg.png');
+        this.load.image('paint',
+            './Assets/Objects/paint_bucket.png');
+        this.load.image('incubator',
+            './Assets/Objects/incubator.png');
         this.load.spritesheet('trash', 
             './Assets/Objects/trash.png', 
             {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
@@ -84,6 +88,11 @@ class Tower1 extends Phaser.Scene {
         keyF = this.input.keyboard.addKey('F');
         keyHoldDuration = 0;
         
+        //define variables
+        this.incubator_collected = false;
+        this.paint_collected = false;
+        this.dialogue_name = "";
+
         //create map
         this.map = this.make.tilemap({ key: 'map' });
 
@@ -122,8 +131,13 @@ class Tower1 extends Phaser.Scene {
 
         this.tableArr = this.map.createFromObjects('Objects', { gid: 61, key: 'table' });
 
+        this.incubator = this.map.createFromObjects('Objects', { gid: 56, key: 'incubator'});
+
+        this.paint = this.map.createFromObjects('Objects', { gid: 63, key: 'paint'});
+
         this.gameObjects = [this.trashArr, this.dustArr, this.cobwebArr,
-                            this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr];
+                            this.holeArr, this.bookshelfArr, this.chairArr, this.tableArr,
+                            this.incubator, this.paint];
         
         this.object_amount = 0;
         this.gameObjects.forEach(arr =>{
@@ -286,6 +300,50 @@ class Tower1 extends Phaser.Scene {
                 this.convo_array.shift();
             }
         });
+
+        //incubator
+        this.events.on("tower_scene_incubator", () => {
+            
+            if (this.convo_array.length === 0) {
+                this.camera.stopFollow(); 
+                this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
+                this.dialogueBox.visible = false;
+                this.in_convo = false;
+                this.events.emit("CLEANUP");
+            } else {
+                this.camera.stopFollow();
+                this.line = this.convo_array[0];
+                this.speaker = this.characters[this.line.char_name];
+                this.speaker_txt = this.line.dialogue;
+                this.dialogueBox.x = this.speaker.x+32;
+                this.dialogueBox.y = this.speaker.y+32; 
+                this.dialogueBox.setText(this.speaker_txt);
+                this.camera.startFollow(this.speaker);
+                this.convo_array.shift();
+            }
+        });
+
+         //paint
+         this.events.on("tower_scene_paint_can", () => {
+            
+            if (this.convo_array.length === 0) {
+                this.camera.stopFollow(); 
+                this.camera.startFollow(this.player, 0.2, 0.2, 50, 50);
+                this.dialogueBox.visible = false;
+                this.in_convo = false;
+                this.events.emit("CLEANUP");
+            } else {
+                this.camera.stopFollow();
+                this.line = this.convo_array[0];
+                this.speaker = this.characters[this.line.char_name];
+                this.speaker_txt = this.line.dialogue;
+                this.dialogueBox.x = this.speaker.x+32;
+                this.dialogueBox.y = this.speaker.y+32; 
+                this.dialogueBox.setText(this.speaker_txt);
+                this.camera.startFollow(this.speaker);
+                this.convo_array.shift();
+            }
+        });
         
         // create progress indicator in top left
         this.progress_text = this.add.text(10, 110, " ", {
@@ -315,7 +373,25 @@ class Tower1 extends Phaser.Scene {
         {
             this.objects.getChildren().forEach(obj => 
             {
-                if(fDown && obj.body.touching.none == false)
+                if(fDown && obj.body.touching.none == false && obj.data.list.objectType === 'incubator')
+                {
+                    this.convo_array = this.dialogue.script["tower_scene_incubator"];
+                    this.dialogue_name = "tower_scene_incubator";
+                    this.in_convo = true;    
+                    obj.alpha = 0;
+                    this.objects.remove(obj);
+                    this.incubator_collected = true;
+                }
+                else if(fDown && obj.body.touching.none == false && obj.data.list.objectType === 'paint')
+                {
+                    this.convo_array = this.dialogue.script["tower_scene_paint_can"];
+                    this.dialogue_name = "tower_scene_paint_can";
+                    this.in_convo = true;    
+                    obj.alpha = 0;
+                    this.objects.remove(obj);
+                    this.paint_collected = true;
+                }
+                else if(fDown && obj.body.touching.none == false)
                 {
                     this.player.cleaning = true;
                     this.player.setVelocityY(0);
@@ -346,13 +422,15 @@ class Tower1 extends Phaser.Scene {
             if (fDown && this.physics.world.overlap(this.player, this.egg[0]))
             {
                 this.convo_array = this.dialogue.script["tower_scene_egg"];
+                this.dialogue_name = "tower_scene_egg";
                 this.in_convo = true; 
              }
         }
 
         if (this.in_convo) {
+            this.dialogueBox.visible = true;
             if (fDown) {
-                this.events.emit("tower_scene_egg");
+                this.events.emit(this.dialogue_name);
             }
         } else {
             // place player movement controls here

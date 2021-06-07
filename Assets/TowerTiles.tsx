@@ -165,6 +165,11 @@
    <property name="objectType" value="chair"/>
   </properties>
  </tile>
+ <tile id="55" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="incubator"/>
+  </properties>
+ </tile>
  <tile id="57">
   <properties>
    <property name="collides" type="bool" value="true"/>
@@ -192,6 +197,11 @@
  <tile id="60" type="ToBeCleaned">
   <properties>
    <property name="objectType" value="table"/>
+  </properties>
+ </tile>
+ <tile id="62" type="ToBeCleaned">
+  <properties>
+   <property name="objectType" value="paint"/>
   </properties>
  </tile>
 </tileset>
