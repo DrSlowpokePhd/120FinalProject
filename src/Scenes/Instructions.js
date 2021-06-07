@@ -1,12 +1,12 @@
-class Start extends Phaser.Scene  {
+class Instructions extends Phaser.Scene  {
     constructor() {
-       super("start"); 
+       super("instructions"); 
     }
-    // this is the start card / intro
+    // this is the instructions card
 
     preload() {
         // load background asset
-        this.load.image('start_background', './Assets/Backgrounds/start_card.png');
+        this.load.image('instructions_background', './Assets/Backgrounds/how_to_play.png');
     }
 
     create() {
@@ -14,7 +14,7 @@ class Start extends Phaser.Scene  {
         keySPACE = this.input.keyboard.addKey('SPACE');
 
         // add backgrounds
-        this.background = this.add.image(0, 0, 'start_background').setOrigin(0, 0);
+        this.background = this.add.image(0, 0, 'instructions_background').setOrigin(0, 0);
 
         // create text
         this.playText = this.add.text(285, 626, "Press SPACE to continue.", {
@@ -34,7 +34,7 @@ class Start extends Phaser.Scene  {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.scene.start('instructions');
+            this.scene.start('tower_1');
         }
     }
 }
