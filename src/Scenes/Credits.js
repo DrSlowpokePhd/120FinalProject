@@ -7,6 +7,7 @@ class Credits extends Phaser.Scene  {
     preload() {
         // load background asset
         this.load.image('credits_background', './Assets/Backgrounds/credits.png');
+        this.load.audio('menu_hit', './Assets/Sounds/sound_effects/menu_hit.wav');
     }
 
     create() {
@@ -35,6 +36,7 @@ class Credits extends Phaser.Scene  {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.sound.play('menu_hit');
             this.scene.start('title');
         }
     }

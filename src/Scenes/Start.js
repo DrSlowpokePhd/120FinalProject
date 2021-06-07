@@ -7,6 +7,7 @@ class Start extends Phaser.Scene  {
     preload() {
         // load background asset
         this.load.image('start_background', './Assets/Backgrounds/start_card.png');
+        this.load.audio('menu_hit', './Assets/Sounds/sound_effects/menu_hit.wav');
     }
 
     create() {
@@ -34,6 +35,7 @@ class Start extends Phaser.Scene  {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.sound.play('menu_hit');
             this.scene.start('instructions');
         }
     }

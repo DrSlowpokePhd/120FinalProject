@@ -13,6 +13,7 @@ class Title extends Phaser.Scene  {
         this.load.image('title_background', './Assets/Backgrounds/new_title.png');
         this.load.spritesheet('big_tower', './Assets/Backgrounds/tower.png',
         {frameWidth: 640, frameHeight: 720, startFrame: 0, endFrame: 24});
+        this.load.audio('menu_hit', './Assets/Sounds/sound_effects/menu_hit.wav');
     }
 
     create() {
@@ -58,22 +59,27 @@ class Title extends Phaser.Scene  {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.sound.play('menu_hit');
             this.scene.start('start');
         }
 
         if (Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.sound.play('menu_hit');
             this.scene.start('credits');
         }
 
         if (Phaser.Input.Keyboard.JustDown(key1)) {
+            this.sound.play('menu_hit');
             this.scene.start('ending1');
         }
 
         if (Phaser.Input.Keyboard.JustDown(key2)) {
+            this.sound.play('menu_hit');
             this.scene.start('ending2');
         }
 
         if (Phaser.Input.Keyboard.JustDown(key3)) {
+            this.sound.play('menu_hit');
             this.scene.start('ending3');
         }
     }

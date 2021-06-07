@@ -60,6 +60,7 @@ class Tower1 extends Phaser.Scene {
         this.load.audio('land_sfx', './Assets/Sounds/sound_effects/character_land.wav');
         this.load.audio('scrub_sfx', './Assets/Sounds/sound_effects/scrub_sound.wav');
         this.load.audio('sweep_sfx', './Assets/Sounds/sound_effects/sweeping.wav');
+        this.load.audio('menu_hit', './Assets/Sounds/sound_effects/menu_hit.wav');
     }
 
     create() {
@@ -407,6 +408,7 @@ class Tower1 extends Phaser.Scene {
         // exit to title functionality
         keyHoldDuration = keyT.getDuration();
         if (keyHoldDuration > 2000) {
+            this.sound.play('menu_hit');
             this.scene.start('title');
         }
     }

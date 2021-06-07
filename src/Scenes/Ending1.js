@@ -7,6 +7,7 @@ class Ending1 extends Phaser.Scene  {
     preload() {
         // load background asset
         this.load.image('ending1_background', './Assets/Backgrounds/newspaper1.png');
+        this.load.audio('menu_hit', './Assets/Sounds/sound_effects/menu_hit.wav');
     }
 
     create() {
@@ -45,6 +46,7 @@ class Ending1 extends Phaser.Scene  {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.sound.play('menu_hit');
             this.scene.start('credits');
         }
     }
