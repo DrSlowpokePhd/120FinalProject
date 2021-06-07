@@ -22,8 +22,6 @@ class Title extends Phaser.Scene  {
         keyR = this.input.keyboard.addKey('R');
         key1 = this.input.keyboard.addKey('ONE');
         key2 = this.input.keyboard.addKey('TWO');
-        key3 = this.input.keyboard.addKey('THREE');
-
         // add animations
         this.anims.create({
             key: 'tower_animation',
@@ -76,11 +74,6 @@ class Title extends Phaser.Scene  {
         if (Phaser.Input.Keyboard.JustDown(key2)) {
             this.sound.play('menu_hit');
             this.scene.start('ending2');
-        }
-
-        if (Phaser.Input.Keyboard.JustDown(key3)) {
-            this.sound.play('menu_hit');
-            this.scene.start('ending3');
         }
     }
 }
