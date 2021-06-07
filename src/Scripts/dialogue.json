@@ -22,38 +22,33 @@
         },
 
         {
-            "char_name" : "Harpy",
-            "dialogue" : "Uh, yes."
-        },
-
-        {
             "char_name" : "Hugh_Mann",
-            "dialogue" : "Well, those are my specialty. You’ve found the right man."
+            "dialogue" : "Ah, yeah. It is old-fashioned to name your company after yourself these days now."
         },
 
         {
             "char_name" : "Harpy",
-            "dialogue" : "Can you come to X Tower at Y street tomorrow? We’re in a bit of a hurry, as you can tell...."
+            "dialogue" : "No… Not that. Your name."
         },
 
         {
             "char_name" : "Hugh_Mann",
-            "dialogue" : "Sure."
-        },
-
-        {
-            "char_name" : "Hugh_Mann",
-            "dialogue" : "Wait, aren’t you going to ask for a price?"
+            "dialogue" : "Oh. I get that a lot. My parents were pretty… odd."
         },
 
         {
             "char_name" : "Harpy",
-            "dialogue" : "Well, our real estate agent said you’d give us a fair price no matter what."
+            "dialogue" : "Uh… I’m sorry to hear that."
         },
 
         {
             "char_name" : "Hugh_Mann",
-            "dialogue" : "Alright then. See you tomorrow."
+            "dialogue" : "Oh. They’re not cooky or anything, they just wanted to spite my grandparents."
+        },
+
+        {
+            "char_name" : "Harpy",
+            "dialogue" : "Ahahaha… (I should stop talking. Also, is it too late to ask for a flat price?)"
         }
     ],
 

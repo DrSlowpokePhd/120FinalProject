@@ -279,11 +279,11 @@ class Tower1 extends Phaser.Scene {
         });
         
         // scene start
-        this.events.once('start', () =>{
-            this.convo_array = this.dialogue.script["tower_intro"];
-            this.dialogue_name = "tower_intro";
-            this.in_convo = true; 
-        });
+        // this.events.once('start', () =>{
+        //     this.convo_array = this.dialogue.script["tower_intro"];
+        //     this.dialogue_name = "tower_intro";
+        //     this.in_convo = true; 
+        // });
 
         // tower intro
         this.events.on("tower_intro", () => {
@@ -518,7 +518,9 @@ class Tower1 extends Phaser.Scene {
                     //ending 1
                     if(this.incubator_collected && this.paint_collected)
                     {
-
+                        this.convo_array = this.dialogue.script["tower_scene_ending_1"];
+                        this.dialogue_name = "tower_scene_ending_1";
+                        this.in_convo = true;
                     }
                     //ending 2
                     else
