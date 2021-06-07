@@ -4,6 +4,9 @@ class Title extends Phaser.Scene  {
     }
     // this is where we put the main menu
     // Menu.js renamed to Title.js
+    // Space starts the game
+    // R takes you to credits
+    // 1, 2, 3 goes to their respective endings (not shown on screen)
 
     preload() {
         // load title assets
