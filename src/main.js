@@ -26,7 +26,7 @@ let config = {
         },
 
     },
-    scene: [Menu, Play, Tower1]
+    scene: [Title, Play, Tower1]
 };
 console.log("in main.js");
 let game = new Phaser.Game(config);
