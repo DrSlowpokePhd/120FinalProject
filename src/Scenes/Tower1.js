@@ -263,7 +263,7 @@ class Tower1 extends Phaser.Scene {
         this.line;
         this.speaker;
         this.speaker_txt;
-        this.dialogueBox = new DialogueBox(this, 0, 0, " ");
+        this.dialogueBox = new DialogueBox(this, 0, 0, "");
 
         // object to store the speaking characters present in a scene
         this.characters = {
@@ -529,7 +529,7 @@ class Tower1 extends Phaser.Scene {
         if (this.in_convo) {
             this.player.play('idle_play', true); 
             this.dialogueBox.visible = true;
-            if (fDown) {
+            if (fDown || this.dialogueBox.text === "test") {
                 this.events.emit(this.dialogue_name);
             }
         } else {
@@ -603,6 +603,18 @@ class Tower1 extends Phaser.Scene {
         keyHoldDurationDebug = keyP.getDuration();
         if (keyHoldDurationDebug > 2000) {
             done = true;
+        }
+
+        //play intro
+        if(this.intro)
+        {
+            if(this.dialogue.script != undefined)
+            {
+                this.intro = false;
+                this.convo_array = this.dialogue.script["tower_intro"];
+                this.dialogue_name = "tower_intro";
+                this.in_convo = true;
+            }
         }
     }
 }
