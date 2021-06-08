@@ -22,7 +22,7 @@ let config = {
         arcade: {
             gravity: {y: 1000},
             tileBias: 64,
-            debug: true
+            debug: false
         },
 
     },
