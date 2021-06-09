@@ -21,16 +21,6 @@ class Ending1 extends Phaser.Scene  {
         this.background = this.add.image(0, 0, 'ending1_background').setOrigin(0, 0);
 
         // create text
-        this.theEnd = this.add.text(1075, 37, "The End.", {
-            fontFamily: 'Eight Bit Dragon',
-            fontSize: '32px',
-            align: 'center'
-        });
-        this.tryAgain = this.add.text(1057, 86, "Try again for\na different\nending!", {
-            fontFamily: 'Eight Bit Dragon',
-            fontSize: '24px',
-            align: 'center'
-        });
         this.continue = this.add.text(1035, 630, "Press SPACE\nto continue.", {
             fontFamily: 'Eight Bit Dragon',
             fontSize: '32px',
