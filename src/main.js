@@ -36,5 +36,5 @@ let key1, key2, key3;
 let keySPACE;
 // declare variables to be used in Tower1.js
 let keyHoldDuration, keyHoldDurationDebug;
-let progress = 0;
-let done = false;
+let progress;
+let done;

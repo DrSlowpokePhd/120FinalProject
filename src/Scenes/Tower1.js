@@ -96,6 +96,8 @@ class Tower1 extends Phaser.Scene {
         this.dialogue_name = "";
         this.doneCheck = false;
         this.intro = true;
+        progress = 0;
+        done = false;
 
         //create map
         this.map = this.make.tilemap({ key: 'map' });
@@ -380,6 +382,7 @@ class Tower1 extends Phaser.Scene {
                 this.in_convo = false;
                 this.cameras.main.fadeOut(1000)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.removeCustomEvents();
                     this.scene.start('ending1');
                     this.scene.stop('tower_1');
                 })
@@ -406,6 +409,7 @@ class Tower1 extends Phaser.Scene {
                 this.in_convo = false;
                 this.cameras.main.fadeOut(1000)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.removeCustomEvents();
                     this.scene.start('ending2');
                     this.scene.stop('tower_1');
                 })
@@ -616,5 +620,15 @@ class Tower1 extends Phaser.Scene {
                 this.in_convo = true;
             }
         }
+    }
+
+    removeCustomEvents() {
+        this.events.off('CLEANUP');
+        this.events.off('tower_intro');
+        this.events.off('tower_scene_egg');
+        this.events.off('tower_scene_incubator');
+        this.events.off('tower_scene_paint_can');
+        this.events.off('tower_scene_ending_1');
+        this.events.off('tower_scene_ending_2');
     }
 }
